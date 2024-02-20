@@ -7,7 +7,7 @@ import { WagmiProvider } from 'wagmi'
 import App from './App.tsx'
 import { config } from './wagmi.ts'
 
-import './index.css'
+import './index.scss'
 
 globalThis.Buffer = Buffer
 
