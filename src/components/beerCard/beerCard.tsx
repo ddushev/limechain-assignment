@@ -6,7 +6,7 @@ import { useBeerContext } from "../../contexts/beerContext";
 
 export default function BeerCard({ beer }: { beer: IBeer }) {
     const { favorites, toggleFavorite } = useBeerContext();
-    const isFavorite = favorites.some((b) => b.id === beer.id);
+    const isFavorite = Array.from(favorites).some((b) => b.id === beer.id);
     return (
         <div className={styles.beerContainer}>
             <div onClick={() => toggleFavorite(beer)} className={styles.starContainer}>

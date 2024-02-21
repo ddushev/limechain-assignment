@@ -7,7 +7,7 @@ import QUERY_PARAMS from "../constants/queryParams";
 
 interface IContext {
     beers: IBeer[],
-    favorites: IBeer[],
+    favorites: Set<IBeer>,
     searchBeers: (searchText: string) => void,
     toggleFavorite: (beer: IBeer) => void,
 }
@@ -16,7 +16,7 @@ const BeerContext = createContext<IContext | undefined>(undefined);
 
 export const BeerContextProvider = ({ children }: { children: ReactNode }) => {
     const [beers, setBeers] = useState<IBeer[]>([]);
-    const [favorites, setFavorites] = useState<IBeer[]>([]);
+    const [favorites, setFavorites] = useState<Set<IBeer>>(new Set());
 
     const [searchParams, _setSearchParams] = useSearchParams();
 
@@ -40,11 +40,13 @@ export const BeerContextProvider = ({ children }: { children: ReactNode }) => {
     }
 
     function toggleFavorite(beer: IBeer) {
-        if(favorites.some((b) => b.id === beer.id)) {
-            setFavorites(favorites.filter((b) => b.id !== beer.id));
-        }else {
-            setFavorites([...favorites, beer]);
+        const updatedFavorites = new Set(favorites);
+        if (updatedFavorites.has(beer)) {
+            updatedFavorites.delete(beer);
+        } else {
+            updatedFavorites.add(beer);
         }
+        setFavorites(updatedFavorites);
     }
 
     const context = {
