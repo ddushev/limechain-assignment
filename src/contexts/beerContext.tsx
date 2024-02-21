@@ -2,7 +2,7 @@ import { useLocation, useSearchParams } from "react-router-dom";
 import { ReactNode, createContext, useContext, useEffect, useState } from "react";
 
 import { IBeer } from "../types/beer";
-import { getBeers } from "../api/apiBeer";
+import { getAllBeers, getSearchedBeers } from "../api/apiBeer";
 import QUERY_PARAMS from "../constants/queryParams";
 import hashBeerData from "../utils/hasBeerData";
 
@@ -25,7 +25,7 @@ export const BeerContextProvider = ({ children }: { children: ReactNode }) => {
 
     useEffect(() => {
         if (!searchParams.get(QUERY_PARAMS.BEER_NAME)) {
-            getBeers()
+            getAllBeers()
                 .then((data) => setBeers(data))
                 .catch((err) => console.warn(err.message));
         }
@@ -34,7 +34,7 @@ export const BeerContextProvider = ({ children }: { children: ReactNode }) => {
 
     async function searchBeers(searchText: string) {
         try {
-            const foundBeers = await getBeers(`${QUERY_PARAMS.BEER_NAME}=${searchText}`);
+            const foundBeers = await getSearchedBeers(`${QUERY_PARAMS.BEER_NAME}=${searchText}`);
             setBeers(foundBeers);
         } catch (err: any) {
             console.warn(err.message)

@@ -12,6 +12,7 @@ export default function Header() {
                 <ul className={styles.navList}>
                     <li><NavLink to={PATHS.HOME}>Home</NavLink></li>
                     <li><NavLink to={PATHS.FAVORITES}>Favorites</NavLink></li>
+                    <li><NavLink to={PATHS.RANDOM_BEER}>Random beer</NavLink></li>
                 </ul>
             </nav>
         </header>

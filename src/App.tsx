@@ -5,6 +5,8 @@ import { BeerContextProvider } from "./contexts/beerContext"
 import Home from "./components/home/home"
 import Header from "./components/header/header"
 import Favorites from "./components/favorites/favorites"
+import RandomBeer from "./components/randomBeer/randomBeer"
+import PATHS from "./constants/paths"
 
 function App() {
 
@@ -14,8 +16,9 @@ function App() {
       <BeerContextProvider>
         <Header />
         <Routes>
-          <Route path='/' element={<Home />}></Route>
-          <Route path='/favorites' element={<Favorites />}></Route>
+          <Route path={PATHS.HOME} element={<Home />}></Route>
+          <Route path={PATHS.FAVORITES} element={<Favorites />}></Route>
+          <Route path={PATHS.RANDOM_BEER} element={<RandomBeer />}></Route>
         </Routes>
       </BeerContextProvider>
     </BrowserRouter>
