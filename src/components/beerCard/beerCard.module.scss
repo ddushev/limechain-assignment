@@ -1,51 +1,56 @@
 .beerContainer {
-    border: 1px solid rgb(198, 198, 198);
-    border-radius: 5px;
-    padding: 20px;
-    margin-bottom: 10px;
+  border: 1px solid rgb(198, 198, 198);
+  border-radius: 5px;
+  padding: 20px;
+  margin-bottom: 10px;
 
-    .starContainer {
-        text-align: right;
+  .starContainer {
+    text-align: right;
 
-        .star {
-            color: #00D2B2;
-        }
+    .starBtn {
+        cursor: pointer;
+        border: none;
+        background-color: inherit;
+      .star {
+        color: #00d2b2;
+        font-size: 1rem;
+      }
+    }
+  }
+
+  .imageDetailsContainer {
+    max-width: 350px;
+    max-height: 170px;
+    display: flex;
+    gap: 70px;
+
+    .imgContainer {
+      width: 40px;
+      height: 100px;
+      overflow: hidden;
+      .beerImg {
+        width: 100%;
+        height: 100%;
+        object-fit: fill;
+      }
     }
 
-    .imageDetailsContainer {
-        max-width: 350px;
-        max-height: 170px;
-        display: flex;
-        gap:70px;
-        
-        .imgContainer {
-            width: 40px;
-            height: 100px;
-            overflow: hidden;
-            .beerImg {
-                width: 100%;
-                height: 100%;
-                object-fit: fill;
-            }
-        }
-    
-        .detailsContainer {
-            overflow: hidden;
-            width: 200px;
-            padding-top: 15px;
-            
-            .beerName {
-                font-size: 1.1rem;
-                font-weight: bold;
-                line-height: 1.5;
-            }
+    .detailsContainer {
+      overflow: hidden;
+      width: 200px;
+      padding-top: 15px;
 
-            .beerDesc {
-                font-size: 1.05rem;
-                line-height: 1.5;
-                word-spacing: 2px;
-            }
-        }
+      .beerName {
+        font-size: 1.1rem;
+        font-weight: bold;
+        line-height: 1.5;
+      }
+
+      .beerDesc {
+        font-size: 1.05rem;
+        line-height: 1.5;
+        word-spacing: 2px;
+      }
     }
+  }
 }
-

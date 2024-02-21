@@ -1,12 +1,11 @@
 import styles from './beerList.module.scss'
 import BeerCard from '../beerCard/beerCard';
-import { useBeerContext } from '../../contexts/beerContext';
+import { IBeer } from '../../types/beer';
 
-export default function BeerList() {
-    const { beers } = useBeerContext();
+export default function BeerList({ beers }: {beers: IBeer[]}) {
     return (
         <div className={styles.beerListContainer}>
-            {beers.map((beer) => <BeerCard key={beer.id} beer={beer}/>)}
+            {beers.map((beer) => <BeerCard key={beer.id} beer={beer} />)}
         </div>
     );
 }
