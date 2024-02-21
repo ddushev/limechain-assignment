@@ -1,8 +1,10 @@
-import React, { useEffect, useState } from 'react';
-import styles from './searchBeer.module.scss';
-import { useBeerContext } from '../../contexts/beerContext';
-import { useSearchParams } from 'react-router-dom';
-import QUERY_PARAMS from '../../constants/queryParams';
+import React, { useEffect, useState } from "react";
+import { useSearchParams } from "react-router-dom";
+
+import { useBeerContext } from "../../contexts/beerContext";
+import QUERY_PARAMS from "../../constants/queryParams";
+
+import styles from "./searchBeer.module.scss";
 
 export default function SearchBeer() {
     const [searchValue, setSearchValue] = useState('');

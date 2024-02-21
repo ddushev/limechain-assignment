@@ -1,6 +1,8 @@
-import { NavLink } from 'react-router-dom';
-import PATHS from '../../constants/paths';
-import styles from './header.module.scss';
+import { NavLink } from "react-router-dom";
+
+import PATHS from "../../constants/paths";
+
+import styles from "./header.module.scss";
 
 export default function Header() {
     return (
