@@ -1,22 +1,25 @@
+import { useLocation, useSearchParams } from "react-router-dom";
 import { ReactNode, createContext, useContext, useEffect, useState } from "react";
 
 import { IBeer } from "../types/beer";
 import { getBeers } from "../api/apiBeer";
-import { useSearchParams } from "react-router-dom";
 import QUERY_PARAMS from "../constants/queryParams";
+import hashBeerData from "../utils/hasBeerData";
 
 interface IContext {
     beers: IBeer[],
-    favorites: Set<IBeer>,
+    favorites: IBeer[],
     searchBeers: (searchText: string) => void,
     toggleFavorite: (beer: IBeer) => void,
 }
 
+
 const BeerContext = createContext<IContext | undefined>(undefined);
 
 export const BeerContextProvider = ({ children }: { children: ReactNode }) => {
+    const location = useLocation();
     const [beers, setBeers] = useState<IBeer[]>([]);
-    const [favorites, setFavorites] = useState<Set<IBeer>>(new Set());
+    const [favorites, setFavorites] = useState<IBeer[]>([]);
 
     const [searchParams, _setSearchParams] = useSearchParams();
 
@@ -27,7 +30,7 @@ export const BeerContextProvider = ({ children }: { children: ReactNode }) => {
                 .catch((err) => console.warn(err.message));
         }
 
-    }, [searchParams]);
+    }, [searchParams, location]);
 
     async function searchBeers(searchText: string) {
         try {
@@ -39,15 +42,23 @@ export const BeerContextProvider = ({ children }: { children: ReactNode }) => {
 
     }
 
-    function toggleFavorite(beer: IBeer) {
-        const updatedFavorites = new Set(favorites);
-        if (updatedFavorites.has(beer)) {
-            updatedFavorites.delete(beer);
+    async function toggleFavorite(beer: IBeer) {
+        let currentHash: string;
+        
+        if (beer.hash) {
+            const { hash } = beer;
+            currentHash = hash;
         } else {
-            updatedFavorites.add(beer);
+            currentHash = await hashBeerData(beer);
         }
-        setFavorites(updatedFavorites);
+    
+        if (favorites.some((b) => b.hash === currentHash)) {
+            setFavorites(favorites.filter((b) => b.hash !== currentHash));
+        } else {
+            setFavorites([...favorites, { ...beer, hash: currentHash }]);
+        }
     }
+    
 
     const context = {
         beers,

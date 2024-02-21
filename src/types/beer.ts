@@ -1,4 +1,5 @@
 export interface IBeer     {
+    hash?: string,
     id: number,
     name: string,
     tagline: string,
