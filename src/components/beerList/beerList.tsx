@@ -1,17 +1,9 @@
-import { useEffect, useState } from 'react';
 import styles from './beerList.module.scss'
-import { getAllBeers } from '../../api/apiBeer';
-import { IBeer } from '../../types/beer';
 import BeerCard from '../beerCard/beerCard';
+import { useBeerContext } from '../../contexts/beerContext';
 
 export default function BeerList() {
-    const [beers, setBeers] = useState<IBeer[]>([]);
-
-    useEffect(() => {
-        getAllBeers()
-            .then((data) => setBeers(data))
-            .catch((err) => console.warn(err.message));
-    }, []);
+    const { beers } = useBeerContext();
     return (
         <div className={styles.beerListContainer}>
             {beers.map((beer) => <BeerCard key={beer.id} beer={beer}/>)}
