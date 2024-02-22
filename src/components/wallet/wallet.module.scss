@@ -10,9 +10,14 @@
         margin-bottom: 15px;
     }
 
+    .subHeading {
+        margin-bottom: 15px;
+    }
+
     .accountDetailsContainer {
         display: flex;
         flex-direction: column;
+        gap: 15px;
     }
 
     .boldText {
