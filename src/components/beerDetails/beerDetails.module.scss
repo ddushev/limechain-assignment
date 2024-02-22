@@ -1,0 +1,19 @@
+.detailsContainer {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 15px;
+
+    .detailsHeading {
+        text-align: center;
+    }
+
+    .boldText {
+        font-weight: bold;
+    }
+
+    .beerImg {
+        max-width: 30px;
+    }
+}

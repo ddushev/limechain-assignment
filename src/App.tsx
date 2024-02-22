@@ -9,6 +9,7 @@ import RandomBeer from "./components/randomBeer/randomBeer"
 import PATHS from "./constants/paths"
 import Wallet from "./components/wallet/wallet"
 import { WalletGuard } from "./components/walletGuard/walletGuard"
+import BeerDetails from "./components/beerDetails/beerDetails"
 
 function App() {
 
@@ -22,6 +23,7 @@ function App() {
                         <Route path={PATHS.HOME} element={<Home />}></Route>
                         <Route path={PATHS.FAVORITES} element={<Favorites />}></Route>
                         <Route path={PATHS.RANDOM_BEER} element={<RandomBeer />}></Route>
+                        <Route path={`${PATHS.BEER_DETAILS}/:beerId`} element={<BeerDetails />}></Route>
                     </Route>
                     <Route path={PATHS.WALLET} element={<Wallet />}></Route>
                 </Routes>

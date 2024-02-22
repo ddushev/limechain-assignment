@@ -1,4 +1,4 @@
-import { useLocation } from "react-router-dom";
+import { NavLink, useLocation } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { FaRegStar, FaStar } from "react-icons/fa";
 
@@ -8,6 +8,7 @@ import hashBeerData from "../../utils/hasBeerData";
 import beerOpenSound from "../../../assets/sounds/beer-open.mp3";
 
 import styles from "./beerCard.module.scss"
+import PATHS from "../../constants/paths";
 
 export default function BeerCard({ beer }: { beer: IBeer }) {
     const location = useLocation();
@@ -50,7 +51,9 @@ export default function BeerCard({ beer }: { beer: IBeer }) {
             </div>
             <div className={styles.imageDetailsContainer}>
                 <div className={styles.imgContainer}>
-                    <img onClick={playBeerOpenSound} className={styles.beerImg} src={beer.image_url} alt="beer-img" />
+                    <NavLink to={`${PATHS.BEER_DETAILS}/${beer.id}`}>
+                        <img onClick={playBeerOpenSound} className={styles.beerImg} src={beer.image_url} alt="beer-img" />
+                    </NavLink>
                 </div>
                 <div className={styles.detailsContainer}>
                     <p className={styles.beerName}>{beerName}</p>
