@@ -20,6 +20,7 @@ export default function Wallet() {
 
             <div>
                 <h2 className={styles.connectionHeading}>Connection</h2>
+                <div className={styles.btnContainer}>
                 {
                     account.status === "disconnected" && (
                         connectors.map((connector) => (
@@ -42,6 +43,7 @@ export default function Wallet() {
                         </button>
                     )
                 }
+                </div>
                 <p><span className={styles.boldText}>status:</span> {status}</p>
                 {error && <p><span className={styles.boldText}>message:</span>{error.message}</p>}
             </div>
