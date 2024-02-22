@@ -5,6 +5,7 @@ import PATHS from "../../constants/paths";
 import styles from "./header.module.scss";
 
 export default function Header() {
+
     return (
         <header className={styles.headerContainer}>
             <h1 className={styles.slogan}>Beans Love Beers</h1>
@@ -13,6 +14,7 @@ export default function Header() {
                     <li><NavLink to={PATHS.HOME}>Home</NavLink></li>
                     <li><NavLink to={PATHS.FAVORITES}>Favorites</NavLink></li>
                     <li><NavLink to={PATHS.RANDOM_BEER}>Random beer</NavLink></li>
+                    <li><NavLink to={PATHS.WALLET}>Wallet</NavLink></li>
                 </ul>
             </nav>
         </header>

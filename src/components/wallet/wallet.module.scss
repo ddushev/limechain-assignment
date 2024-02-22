@@ -1,0 +1,31 @@
+.connectWalletContainer {
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+    align-items: center;
+    gap:50px;
+
+    .accountHeading,
+    .connectionHeading {
+        margin-bottom: 15px;
+    }
+
+    .accountDetailsContainer {
+        display: flex;
+        flex-direction: column;
+    }
+
+    .boldText {
+        font-weight: bold;
+    }
+
+    .btn {
+        cursor: pointer;
+        background-color: #2d70df;
+        color: #fff;
+        font-size: 1rem;
+        padding: 15px;
+        border: none;
+        margin-bottom: 15px;
+    }
+}
