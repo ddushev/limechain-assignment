@@ -12,13 +12,14 @@ import PATHS from "../../constants/paths";
 
 export default function BeerDetails() {
     const navigate = useNavigate();
-    let [ratingStr, setRating] = useState("");
-    const [beerNumber, setBeerNumber] = useState("");
+    const [ratingStr, setRating] = useState("");
+    const [beerNumberStr, setBeerNumber] = useState("");
     const [message, setMessage] = useState("");
     const [hash, setHash] = useState("");
     const { beerId } = useParams();
     const { data: transactionHash, error, writeContract } = useWriteContract();
     const rating = Number(ratingStr);
+    const beerNumber = Number(beerNumberStr);
     useEffect(() => {
         setHash(transactionHash!);
     }, [transactionHash]);
@@ -72,8 +73,13 @@ export default function BeerDetails() {
     }
 
     const handleCheckBeer = () => {
-        navigate(`${PATHS.BEER_DETAILS}/${Number(beerNumber) - 1}`);
+        if (beerNumber < 1 || beerNumber > numberOfBeers) {
+            setMessage("Invalid beer number");
+            return;
+        }
+        navigate(`${PATHS.BEER_DETAILS}/${beerNumber - 1}`);
         setBeerNumber("");
+        setMessage("");
     }
 
     if (Number(beerId) >= numberOfBeers) {
@@ -95,15 +101,15 @@ export default function BeerDetails() {
                         {beerDetails &&
                             <>
                                 <div>
-                                    <label htmlFor="beerNumber"><span className={styles.boldText}>Check Beer Number:</span> </label>
+                                    <label htmlFor="beerNumber"><span className={styles.boldText}>Show Beer Number:</span> </label>
                                     <input className={styles.ratingInput}
-                                        min={0}
+                                        min={1}
                                         max={numberOfBeers}
                                         type="number"
                                         name="beerNumber"
                                         id="beerNumber"
                                         placeholder={`0 to ${numberOfBeers}`}
-                                        value={beerNumber}
+                                        value={beerNumberStr}
                                         onChange={handleBeerChange} />
                                 </div>
                                 <button onClick={handleCheckBeer} className={styles.btn} type="button">Check Beer</button>
@@ -123,7 +129,7 @@ export default function BeerDetails() {
                                         name="ratingInput"
                                         id="ratingInput"
                                         placeholder="1 to 5"
-                                        value={rating}
+                                        value={ratingStr}
                                         onChange={handleRatingChange} />
                                 </div>
                                 <button onClick={handleSendClick} className={styles.btn} type="button">Rate</button>
