@@ -3,8 +3,7 @@ import { useAccount } from "wagmi";
 
 export const WalletGuard = () => {
     const account = useAccount();
-    
-    if (account.status !== "connected") {
+    if (account.status == "disconnected") {
         return <Navigate to='/wallet' />
     }
 
