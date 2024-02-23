@@ -11,6 +11,7 @@ import PATHS from "./constants/paths"
 import Wallet from "./components/wallet/wallet"
 import BeerDetails from "./components/beerDetails/beerDetails"
 import AddBeer from "./components/addBeer/addBeer"
+import NotFound from "./components/notFound/notFound"
 
 function App() {
 
@@ -28,6 +29,7 @@ function App() {
                         <Route path={`${PATHS.BEER_DETAILS}/:beerId`} element={<BeerDetails />}></Route>
                     </Route>
                     <Route path={PATHS.WALLET} element={<Wallet />}></Route>
+                    <Route path="*" element={<NotFound />} />
                 </Routes>
             </BeerContextProvider>
         </BrowserRouter>
