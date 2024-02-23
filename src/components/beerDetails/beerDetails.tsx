@@ -1,7 +1,7 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { sepolia } from "wagmi/chains"
-import { useReadContract, useWriteContract } from 'wagmi';
+import { useReadContract, useWriteContract, useWaitForTransactionReceipt } from 'wagmi';
 
 import CONTRACT from "../../constants/contract";
 
@@ -12,12 +12,29 @@ import PATHS from "../../constants/paths";
 
 export default function BeerDetails() {
     const navigate = useNavigate();
-    const [rating, setRating] = useState("");
+    let [ratingStr, setRating] = useState("");
     const [beerNumber, setBeerNumber] = useState("");
     const [message, setMessage] = useState("");
-    const { data: hash, error, writeContract } = useWriteContract();
+    const [hash, setHash] = useState("");
     const { beerId } = useParams();
-    const { data: numberOfBeers } = useReadContract({
+    const { data: transactionHash, error, writeContract } = useWriteContract();
+    const rating = Number(ratingStr);
+    useEffect(() => {
+        setHash(transactionHash!);
+    }, [transactionHash]);
+    
+    const res =
+        useWaitForTransactionReceipt({
+            hash: transactionHash,
+        });
+
+    useEffect(() => {
+        return () => {
+            setRating("");
+            setHash("");
+        }
+    }, [res.isLoading]);
+    const { data: numberOfBeersBigInt } = useReadContract({
         abi: CONTRACT.ABI,
         address: `0x${CONTRACT.ADDRESS}`,
         args: [],
@@ -31,7 +48,7 @@ export default function BeerDetails() {
         args: [BigInt(beerId!)],
         chainId: sepolia.id,
     });
-
+    const numberOfBeers = Number(numberOfBeersBigInt);
     const handleRatingChange = (event: React.ChangeEvent<HTMLInputElement>) => {
         setRating(event.target.value);
     }
@@ -41,7 +58,7 @@ export default function BeerDetails() {
     }
 
     const handleSendClick = () => {
-        if (Number(rating) < 1 || Number(rating) > 5) {
+        if (rating < 1 || rating > 5) {
             setMessage("Rating should be between 1 and 5 inclusive");
             return;
         }
@@ -49,7 +66,7 @@ export default function BeerDetails() {
             abi: CONTRACT.ABI,
             address: `0x${CONTRACT.ADDRESS}`,
             functionName: "rateBeer",
-            args: [BigInt(beerId!), Number(rating)],
+            args: [BigInt(beerId!), rating],
         })
         setMessage("");
     }
@@ -59,7 +76,7 @@ export default function BeerDetails() {
         setBeerNumber("");
     }
 
-    if (Number(beerId) >= Number(numberOfBeers)) {
+    if (Number(beerId) >= numberOfBeers) {
         return (
             <div className={styles.detailsContainer}>
                 <h2 className={styles.detailsHeading}>The is no such beer in the smart contract</h2>
@@ -74,18 +91,18 @@ export default function BeerDetails() {
                     <h2 className={styles.detailsHeading}>Loading...</h2>
                     :
                     <>
-                        <h2 className={styles.detailsHeading}>Details for beer number {Number(beerId) + 1} of total {Number(numberOfBeers)} beers in the smart contract</h2>
+                        <h2 className={styles.detailsHeading}>Details for beer number {Number(beerId) + 1} of total {numberOfBeers} beers in the smart contract</h2>
                         {beerDetails &&
                             <>
                                 <div>
                                     <label htmlFor="beerNumber"><span className={styles.boldText}>Check Beer Number:</span> </label>
                                     <input className={styles.ratingInput}
                                         min={0}
-                                        max={Number(numberOfBeers)}
+                                        max={numberOfBeers}
                                         type="number"
                                         name="beerNumber"
                                         id="beerNumber"
-                                        placeholder={`0 to ${Number(numberOfBeers)}`}
+                                        placeholder={`0 to ${numberOfBeers}`}
                                         value={beerNumber}
                                         onChange={handleBeerChange} />
                                 </div>
@@ -115,6 +132,8 @@ export default function BeerDetails() {
                                 {error && (
                                     <p><span className={styles.boldText}>Error:</span> {(error as BaseError).shortMessage || error.message}</p>
                                 )}
+                                {res.isLoading && <p className={styles.boldText}>Hold one more sec, your transaction is getting validated</p>}
+                                {!res.isSuccess && <p className={styles.boldText}>{res.error?.message}</p>}
                             </>
                         }
                     </>
