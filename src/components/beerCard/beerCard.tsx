@@ -51,7 +51,7 @@ export default function BeerCard({ beer }: { beer: IBeer }) {
             </div>
             <div className={styles.imageDetailsContainer}>
                 <div className={styles.imgContainer}>
-                    <NavLink to={`${PATHS.BEER_DETAILS}/${beer.id}`}>
+                    <NavLink to={`${PATHS.BEER_DETAILS}/${beer.id - 1}`}>
                         <img onClick={playBeerOpenSound} className={styles.beerImg} src={beer.image_url} alt="beer-img" />
                     </NavLink>
                 </div>

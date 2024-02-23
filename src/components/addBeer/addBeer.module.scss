@@ -1,0 +1,55 @@
+.addBeerContainer {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  gap: 15px;
+
+  .addBeerHeading {
+    text-align: center;
+  }
+
+  .addBeerForm {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: left;
+    gap: 15px;
+
+    .inputContainer {
+      width: 100%;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 30px;
+
+      .label {
+        text-align: left;
+        flex: 1 1 30%;
+        font-weight: bold;
+      }
+
+      .input {
+        flex: 1 1 60%;
+        font-size: 1rem;
+        padding: 5px;
+      }
+    }
+  }
+
+  .addBtn {
+    cursor: pointer;
+    background-color: #2d70df;
+    color: #fff;
+    font-size: 1rem;
+    padding: 15px;
+    border: none;
+    margin-bottom: 15px;
+  }
+
+  .boldText {
+    font-weight: bold;
+  }
+}
