@@ -4,6 +4,8 @@ import { useSearchParams } from "react-router-dom";
 import { useBeerContext } from "../../contexts/beerContext";
 import QUERY_PARAMS from "../../constants/queryParams";
 
+import SimpleBtn from "../../elements/simpleBtn/simpleBtn";
+
 import styles from "./searchBeer.module.scss";
 
 export default function SearchBeer() {
@@ -38,7 +40,7 @@ export default function SearchBeer() {
     return (
         <div className={styles.searchContainer}>
             <input className={styles.searchInput} type="text" name="beerName" id="searchBeer" placeholder="Search for beer..." value={searchValue} onChange={handleInputChange} />
-            <button onClick={handleSearchClick} className={styles.searchBtn}>Search</button>
+            <SimpleBtn onClickHandler={handleSearchClick} type="button" additionalStyles={styles.searchBtn}>Search</SimpleBtn>
         </div>
     );
 }

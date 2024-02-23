@@ -8,6 +8,7 @@ import PATHS from "../../constants/paths";
 
 import styles from "./beerDetails.module.scss";
 import TransactionStatus from "../../elements/transactionStatus/transactionStatus";
+import SimpleBtn from "../../elements/simpleBtn/simpleBtn";
 
 
 export default function BeerDetails() {
@@ -112,7 +113,7 @@ export default function BeerDetails() {
                                         value={beerNumberStr}
                                         onChange={handleBeerChange} />
                                 </div>
-                                <button onClick={handleCheckBeer} className={styles.btn} type="button">Check Beer</button>
+                                <SimpleBtn onClickHandler={handleCheckBeer} type="button" >Show</SimpleBtn>
                                 <p><span className={styles.boldText}>Beer Name:</span> {beerDetails[0]}</p>
                                 <img className={styles.beerImg} src={beerDetails[1]} alt="beer-img" />
                                 <p><span className={styles.boldText}>Brewery:</span> {beerDetails[2]}</p>
@@ -132,7 +133,7 @@ export default function BeerDetails() {
                                         value={ratingStr}
                                         onChange={handleRatingChange} />
                                 </div>
-                                <button onClick={handleSendClick} className={styles.btn} type="button">Rate</button>
+                                <SimpleBtn onClickHandler={handleSendClick} type="button" >Rate</SimpleBtn>
                                 {message && <p className={styles.errorMsg}><span className={styles.boldText}>Invalid input:</span> {message}</p>}
                                 <TransactionStatus hash={hash as `0x${string}`} res={res} error={error}/>
                             </>

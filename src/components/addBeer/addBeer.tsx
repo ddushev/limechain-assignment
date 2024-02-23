@@ -10,6 +10,7 @@ import PATHS from "../../constants/paths";
 
 import styles from "./addBeer.module.scss";
 import TransactionStatus from "../../elements/transactionStatus/transactionStatus";
+import SimpleBtn from "../../elements/simpleBtn/simpleBtn";
 
 export default function AddBeer() {
     const navigate = useNavigate();
@@ -128,8 +129,7 @@ export default function AddBeer() {
                         value={values[BEER_FORM_FIELDS.PRICE]}
                         onChange={onChangeHandler} />
                 </div>
-
-                <button type="submit" className={styles.addBtn}>Add beer</button>
+                <SimpleBtn type="submit">Add beer</SimpleBtn>
             </form>
             <TransactionStatus hash={hash} res={res} error={error}/>
         </div>
