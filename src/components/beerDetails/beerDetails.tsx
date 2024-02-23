@@ -1,13 +1,13 @@
-import { useEffect, useState } from "react";
-import { useNavigate, useParams } from "react-router-dom";
 import { sepolia } from "wagmi/chains"
 import { useReadContract, useWriteContract, useWaitForTransactionReceipt } from 'wagmi';
+import { useEffect, useState } from "react";
+import { useNavigate, useParams } from "react-router-dom";
 
 import CONTRACT from "../../constants/contract";
+import PATHS from "../../constants/paths";
 
 import styles from "./beerDetails.module.scss";
-import { BaseError } from "viem";
-import PATHS from "../../constants/paths";
+import TransactionStatus from "../../elements/transactionStatus/transactionStatus";
 
 
 export default function BeerDetails() {
@@ -133,13 +133,8 @@ export default function BeerDetails() {
                                         onChange={handleRatingChange} />
                                 </div>
                                 <button onClick={handleSendClick} className={styles.btn} type="button">Rate</button>
-                                {hash && <p><span className={styles.boldText}>Transaction hash:</span> {hash}</p>}
-                                {message && <p><span className={styles.boldText}>Invalid input:</span> {message}</p>}
-                                {error && (
-                                    <p><span className={styles.boldText}>Error:</span> {(error as BaseError).shortMessage || error.message}</p>
-                                )}
-                                {res.isLoading && <p className={styles.boldText}>Hold one more sec, your transaction is getting validated</p>}
-                                {!res.isSuccess && <p className={styles.boldText}>{res.error?.message}</p>}
+                                {message && <p className={styles.errorMsg}><span className={styles.boldText}>Invalid input:</span> {message}</p>}
+                                <TransactionStatus hash={hash as `0x${string}`} res={res} error={error}/>
                             </>
                         }
                     </>

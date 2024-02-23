@@ -1,15 +1,15 @@
 import { sepolia } from "viem/chains";
 import { useReadContract, useWriteContract, useWaitForTransactionReceipt } from "wagmi";
-import { BaseError } from "viem";
 import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 
 import useForm from "../../hooks/useForm";
 import BEER_FORM_FIELDS from "../../constants/formFields";
 import CONTRACT from "../../constants/contract";
+import PATHS from "../../constants/paths";
 
 import styles from "./addBeer.module.scss";
-import PATHS from "../../constants/paths";
+import TransactionStatus from "../../elements/transactionStatus/transactionStatus";
 
 export default function AddBeer() {
     const navigate = useNavigate();
@@ -131,14 +131,7 @@ export default function AddBeer() {
 
                 <button type="submit" className={styles.addBtn}>Add beer</button>
             </form>
-
-            {hash && <p><span className={styles.boldText}>Transaction hash:</span> {hash}</p>}
-
-            {error && (
-                <p><span className={styles.boldText}>Error:</span> {(error as BaseError).shortMessage || error.message}</p>
-            )}
-            {res.isLoading && <p className={styles.boldText}>Hold one more sec, your transaction is getting validated</p>}
-            {!res.isSuccess && <p className={styles.boldText}>{res.error?.message}</p>}
+            <TransactionStatus hash={hash} res={res} error={error}/>
         </div>
     )
 }
