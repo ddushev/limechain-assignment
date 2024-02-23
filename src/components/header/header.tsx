@@ -13,8 +13,9 @@ export default function Header() {
                 <ul className={styles.navList}>
                     <li><NavLink to={PATHS.HOME}>Home</NavLink></li>
                     <li><NavLink to={PATHS.FAVORITES}>Favorites</NavLink></li>
-                    <li><NavLink to={PATHS.RANDOM_BEER}>Random beer</NavLink></li>
-                    <li><NavLink to={PATHS.ADD_BEER}>Add beer</NavLink></li>
+                    <li><NavLink to={PATHS.RANDOM_BEER}>Random</NavLink></li>
+                    <li><NavLink to={`${PATHS.BEER_DETAILS}/1`}>Details</NavLink></li>
+                    <li><NavLink to={PATHS.ADD_BEER}>Add</NavLink></li>
                     <li><NavLink to={PATHS.WALLET}>Wallet</NavLink></li>
                 </ul>
             </nav>

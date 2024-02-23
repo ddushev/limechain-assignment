@@ -23,7 +23,7 @@ export default function BeerDetails() {
     useEffect(() => {
         setHash(transactionHash!);
     }, [transactionHash]);
-    
+
     const res =
         useWaitForTransactionReceipt({
             hash: transactionHash,
@@ -46,7 +46,7 @@ export default function BeerDetails() {
         abi: CONTRACT.ABI,
         address: `0x${CONTRACT.ADDRESS}`,
         functionName: 'getBeer',
-        args: [BigInt(beerId!)],
+        args: [BigInt(Number(beerId!) - 1)],
         chainId: sepolia.id,
     });
     const numberOfBeers = Number(numberOfBeersBigInt);
@@ -67,7 +67,7 @@ export default function BeerDetails() {
             abi: CONTRACT.ABI,
             address: `0x${CONTRACT.ADDRESS}`,
             functionName: "rateBeer",
-            args: [BigInt(beerId!), rating],
+            args: [BigInt(Number(beerId!) - 1), rating],
         })
         setMessage("");
     }
@@ -77,7 +77,7 @@ export default function BeerDetails() {
             setMessage("Invalid beer number");
             return;
         }
-        navigate(`${PATHS.BEER_DETAILS}/${beerNumber - 1}`);
+        navigate(`${PATHS.BEER_DETAILS}/${beerNumber}`);
         setBeerNumber("");
         setMessage("");
     }
@@ -97,7 +97,7 @@ export default function BeerDetails() {
                     <h2 className={styles.detailsHeading}>Loading...</h2>
                     :
                     <>
-                        <h2 className={styles.detailsHeading}>Details for beer number {Number(beerId) + 1} of total {numberOfBeers} beers in the smart contract</h2>
+                        <h2 className={styles.detailsHeading}>Details for beer number {Number(beerId)} of total {numberOfBeers - 1} beers in the smart contract</h2>
                         {beerDetails &&
                             <>
                                 <div>
@@ -108,7 +108,7 @@ export default function BeerDetails() {
                                         type="number"
                                         name="beerNumber"
                                         id="beerNumber"
-                                        placeholder={`0 to ${numberOfBeers}`}
+                                        placeholder={`1 to ${numberOfBeers - 1}`}
                                         value={beerNumberStr}
                                         onChange={handleBeerChange} />
                                 </div>
